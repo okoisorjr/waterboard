@@ -1,0 +1,43 @@
+{% extends 'project/header.html'%}
+
+{% block content %}
+<div class="container matp">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="card-title ml-5 mt-4">
+					<h3>Profile</h3>
+				</div>
+				<div class="card-body ml-5">
+					<div class="row">
+						<div class="col p-4 text-center">
+							{% load static %}
+							<a href="{% static 'assets/Pictures.jpg' %}" target="_blank"><img src={% static 'assets/Pictures.jpg' %} alt="" style="border-radius:50%; width:150px; height:150px;"/></a><hr>
+							<button class="btn btn-secondary">upload Image</button>
+						</div>
+						<div class="col p-4">
+							<p class="bold">customer ID:</p><p> #1234567890</p>
+							<p class="bold">username:</p><p>Onuh David</p>
+							<p class="bold">Email:</p><p>onuhdavid@gmail.com</p>
+							<button class="btn btn-primary">Edit Profile</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card mt-2">
+				<div class="card-title mt-3">
+					<h3 class="text-center">Subscription-package</h3>
+				</div>
+				<div class="card-body">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+{% endblock %}

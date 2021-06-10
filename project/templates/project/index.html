@@ -1,0 +1,29 @@
+{% include 'project/unauth_header.html' %}
+
+{% block content%}
+		<div class="jumbotron mt-5">
+			<div class="container">
+				<h1>Welcome Note!</h1>
+				<p>A Bunch of text!</p>
+				<a class="btn btn-primary" role="button">Subscribe</a>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<div class="col">
+							{% load static %}
+							<img src={% static 'assets/mastercard-logo-png-transparent.png' %} alt="mastercard-logo-png-transparent">
+						</div>
+						<div class="col">
+							<p>We accept payments from mastercard users</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					
+				</div>
+			</div>
+		</div>
+{% endblock %}

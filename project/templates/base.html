@@ -199,7 +199,7 @@
 			</div>
 			<div class="navbar">
 				<ul class="nav">
-					<li><a href="/">My Account</a></li>
+					<li><a href="{% url 'dashboard'%}">Dashboard</a></li>
 				</ul>
 			</div>
 		</header>
@@ -210,7 +210,12 @@
 			<li><a href="{% url 'dashboard' %}" role="button">Dashboard<span class="caret"></span></a></li>
 			<li><a href="{% url 'homepage' %}">Home</a></li>
 			<li><a href="{% url 'plans'%}">Plans</a></li>
-			<li><a href="/admin">Logout</a></li>
+			{% if request.user.is_authenticated %}
+			<li><a href="#">Logout</a></li>
+			{%else%}
+			<li><a href="">Login</a></li>
+			<li><a href="">Register</a></li>
+			{% endif %}
 		</ul>
 	</div>
 	<div id="content">

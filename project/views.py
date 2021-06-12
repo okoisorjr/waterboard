@@ -8,7 +8,7 @@ def index(request):
 def dashboard(request):
 	return render(request, 'project/dashboard.html')
 
-def subscription(request):
+def plans(request):
 	return render(request, 'project/subscription.html')
 	
 

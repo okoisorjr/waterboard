@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from .forms import UserRegistrationForm
 
 # Create your views here.
 
@@ -14,3 +15,12 @@ def dashboard(request):
 def plans(request):
 	return render(request, 'project/subscription.html')
 	
+def register(request):
+	form = UserRegistrationForm()
+	if request.method == "POST":
+		form =  UserRegistrationForm(request.POST or None)
+		if form.is_valid():
+			form.save(commit=True)
+		return redirect(reverse('login'))
+	context = dict(form=form)
+	return render(request, 'registration/register.html', context=context)

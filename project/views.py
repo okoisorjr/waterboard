@@ -23,4 +23,5 @@ def register(request):
 			form.save(commit=True)
 		return redirect(reverse('login'))
 	context = dict(form=form)
+	print(context)
 	return render(request, 'registration/register.html', context=context)

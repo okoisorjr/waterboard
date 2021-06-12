@@ -9,6 +9,9 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['email'].required = True
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+        self.fields['address'].required = True
+        self.fields['city'].required = True
+        self.fields['state'].required = True
 
 
     USER_TYPE = (
@@ -23,7 +26,10 @@ class UserRegistrationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         
         model = User
-        fields = ['user_type', 'username', 'email', 'first_name', 'last_name', 'phone_number', 'password1', 'password2']
+        fields = [
+            'user_type', 'username', 'email', 'first_name', 'last_name', 'phone_number',
+            'address', 'city', 'state', 'password1', 'password2'
+            ]
         
     def save(self, commit: bool):
         if commit:

@@ -63,14 +63,12 @@ class Subscription(models.Model):
         return self.get_plan_subscribed_display()
 
     def deactivate(self):
-        """ Update Subscription and deactivates all instances"""
-        # Deactivate all user instances first
+        """ Deactivate Subscription"""
         self.active = False
         self.save()
 
     def activate(self):
-        """ Update Subscription and deactivates all instances"""
-        # Deactivate all user instances first
+        """ Activate Subscription"""
         self.active = True
         self.save()
 
@@ -91,11 +89,18 @@ class Subscription(models.Model):
         """
         # If account is expired, we want to add the new plan duration to the current time, not to the
         # user existing subscription
-        if self.is_expired:
+        if not (self.active and self.activated):
             self.expiry_date = timezone.now() + timezone.timedelta(plan.duration)
         else:
             self.expiry_date = self.expiry_date + timezone.timedelta(plan.duration)
         self.plan_subscribed = plan
         self.active = True
+        self.activated = True
         self.save()
+
+    def get_plan_subscribed_display(self):
+        """ return plan long name """
+
+        return self.plan.long_name
+
 

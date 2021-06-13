@@ -1,9 +1,10 @@
 from django.conf import settings
+from django.contrib import messages
 from libs.utils.paystack_api import PaystackAccount
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from project.models import Plans
+from project.models import Plans, Subscription
 from .forms import UserRegistrationForm
 
 # Create your views here.
@@ -40,12 +41,21 @@ def subscribe(request):
 	else:
 		plan = Plans.objects.filter(name__icontains='ind').first()
 		user_type = "Residential"
-
 	paystack = PaystackAccount(
             email=settings.PAYSTACK_EMAIL,
             public_key=settings.PAYSTACK_PUBLIC_KEY,
             amount= plan.price
         )
+	if request.method == "POST":
+		if paystack.verify_transaction(request.POST['reference']):
+			user_sub, _ = Subscription.objects.get_or_create(user=request.user)
+			# print(user_sub)
+			user_sub.activate_subscription(plan)
+			messages.success(request, "Payment was successful. Your subscription has been activated!.")
+			return redirect(reverse('dashboard'))
+		else:
+			messages.error(request, "Payment Not successful")
+			return redirect(reverse('dashboard'))
 	context = dict(
 		paystack=paystack,
 		plan=plan,

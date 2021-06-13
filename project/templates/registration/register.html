@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container mt-2">
+    <fieldset class="w-50 mr-auto ml-auto border">
+        <legend> User Registration </legend>
+        <div class="container p-4">
+            <form method="post">
+                {{form|crispy}}
+                {% csrf_token %}
+                <input type="submit" value="Submit" class="btn btn-primary btn-sm">
+            </form>
+        </div>
+    </fieldset>
+
+</div>
+
+
+{% endblock %}
+

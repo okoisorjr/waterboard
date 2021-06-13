@@ -1,0 +1,16 @@
+.clear-top{
+    margin-top: 15rem;
+}
+
+
+.text-checkout {
+    font-size: large;
+    font-weight: bolder;
+}
+
+.text-type{
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-decoration:underline;
+
+}

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'crispy_forms',
 ]
 
@@ -134,3 +135,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 LOGOUT_REDIRECT_URL = reverse_lazy('homepage')
+
+PAYSTACK_EMAIL = "youngstizy@gmail.com"
+PAYSTACK_PUBLIC_KEY = "pk_test_0648fd53970b44f3e99c8a4fe69f4bbbdd679233"
+PAYSTACK_SECRET_KEY = "sk_test_89a731d195ed54e9a31e62a40969af5122234f31"

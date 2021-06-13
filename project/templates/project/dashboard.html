@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-
+{% load static %}
 {% block content %}
 <div class="container matp">
 	<div class="row">
@@ -10,16 +10,18 @@
 				</div>
 				<div class="card-body ml-5">
 					<div class="row">
-						<div class="col p-4 text-center">
-							{% load static %}
-							<a href="{% static 'assets/Pictures.jpg' %}" target="_blank"><img src={% static 'assets/Pictures.jpg' %} alt="" style="border-radius:50%; width:150px; height:150px;"/></a><hr>
-							<button class="btn btn-secondary">upload Image</button>
+						<div class="col-1 p- text-center">
 						</div>
-						<div class="col p-4">
-							<p class="bold">customer ID:</p><p> #1234567890</p>
-							<p class="bold">username:</p><p>Onuh David</p>
-							<p class="bold">Email:</p><p>onuhdavid@gmail.com</p>
-							<button class="btn btn-primary">Edit Profile</button>
+						<div class="col-8 p-4">
+							<p class="bold">customer ID:</p><p> {{ request.user.id }}</p>
+							<p class="bold">username:</p><p>{{request.user.username}}</p>
+							<p class="bold">Email:</p><p>{{request.user.email}}</p>
+							<p class="bold">Phone Number:</p><p>{{request.user.phone_number}}</p>
+							<p class="bold">Address:</p><p>{{request.user.address}}</p>
+							<p class="bold">City:</p><p>{{request.user.city}}</p>
+							<p class="bold">State:</p><p>{{request.user.state}}</p>
+						</div>
+						<div class="col-3 p-4 text-center">
 						</div>
 					</div>
 				</div>
@@ -33,7 +35,14 @@
 					<h3 class="text-center">Subscription-package</h3>
 				</div>
 				<div class="card-body">
-					
+					<h4 class="text-center">
+						{%if request.user.subscription%}
+							{{request.user.subscription }}
+						{%else%}
+							No Plan <br>
+							<a href="{% url 'subscribe' %}" class="text-success">Subscribe</a>
+						{%endif%}
+					</h4>
 				</div>
 			</div>
 		</div>

@@ -17,9 +17,6 @@ def dashboard(request):
 		return redirect('/admin')
 	return render(request, 'project/dashboard.html')
 
-def plans(request):
-	return render(request, 'project/subscription.html')
-	
 def register(request):
 	form = UserRegistrationForm()
 	if request.method == "POST":

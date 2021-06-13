@@ -209,7 +209,6 @@
 		<ul class="menu">
 			<li><a href="{% url 'dashboard' %}" role="button">Dashboard<span class="caret"></span></a></li>
 			<li><a href="{% url 'homepage' %}">Home</a></li>
-			<li><a href="{% url 'plans'%}">Plans</a></li>
 			{% if request.user.is_authenticated %}
 			<li><a href="{% url 'logout'%}">Logout</a></li>
 			{%else%}

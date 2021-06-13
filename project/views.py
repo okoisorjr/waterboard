@@ -26,6 +26,7 @@ def register(request):
 		form =  UserRegistrationForm(request.POST or None)
 		if form.is_valid():
 			form.save(commit=True)
+		messages.success(request, "Account created successfully, Please Login!.")
 		return redirect(reverse('login'))
 	context = dict(form=form)
 	return render(request, 'registration/register.html', context=context)
@@ -54,7 +55,7 @@ def subscribe(request):
 			messages.success(request, "Payment was successful. Your subscription has been activated!.")
 			return redirect(reverse('dashboard'))
 		else:
-			messages.error(request, "Payment Not successful")
+			messages.error(request, "Payment Not successful, Please try again")
 			return redirect(reverse('dashboard'))
 	context = dict(
 		paystack=paystack,

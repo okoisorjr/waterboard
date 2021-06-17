@@ -13,7 +13,6 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 
 from wash.celery import app
-from project.models import User
 
 @app.task(bind=True)
 def send_email(self,  # pylint: disable=too-many-arguments
@@ -43,6 +42,7 @@ def send_email(self,  # pylint: disable=too-many-arguments
                     template
     :type context: dict
     """
+    from project.models import User
     if not context:
         if username:
             context = {'user': User.objects.get(username=username)}

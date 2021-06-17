@@ -1,0 +1,14 @@
+{% extends 'email_base.html' %}
+{% load static %}
+
+{% block subject%}
+{{ subject }}
+{% endblock subject%}
+
+
+{% block email_content %}
+Dear {{ user.get_full_name }}
+<h6>
+Your payment for installation has been successful.
+</h6>
+{% endblock email_content %}

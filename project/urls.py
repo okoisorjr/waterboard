@@ -9,6 +9,7 @@ urlpatterns = [
 	path('login', LoginView.as_view(), name='login'),
 	path('logout/', LogoutView.as_view(), name='logout'),
 	path('checkout/', views.subscribe, name='subscribe'),
+	path('installation-fee/', views.pay_installation_fee, name='installation'),
 
 
 ]

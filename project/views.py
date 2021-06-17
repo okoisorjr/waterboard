@@ -31,6 +31,12 @@ def register(request):
 
 @login_required
 def subscribe(request):
+	# only verifed and people who have paid installation fee can access
+	if not (request.user.verified and request.user.paid_installment_fee):
+		messages.info(
+			request, "Only users whose addresses have been verified and have paid their installation fee can access this page!."
+			)
+		return redirect(reverse('dashboard'))
 	plan = None
 	user_type = None
 	if request.user.is_organization:

@@ -26,37 +26,48 @@
 								</div>
 								<div class="card-body">
 									<h4 class="text-center">
-										{%if request.user.subscription.active %}
-										<ul class="list-group text-center">
-											<li class="list-group-item">{{request.user.subscription }}</li>
-											<li class="list-group-item">
-												Status:
-												{%if request.user.subscription.active%}
-													<span class="text-success">ACTIVE</span>
+										{%if request.user.verifed %}
+											{%if request.user.paid_installment_fee %}
+												{%if request.user.subscription.active %}
+												<ul class="list-group text-center">
+													<li class="list-group-item">{{request.user.subscription }}</li>
+													<li class="list-group-item">
+														Status:
+														{%if request.user.subscription.active%}
+															<span class="text-success">ACTIVE</span>
+														{%else%}
+															<span class="text-danger">INACTIVE</span>
+														{%endif%}
+													</li>
+													<li class="list-group-item">
+						
+														<div class="d-flex justify-content-start align-items-center">
+															<strong>Time Left: </strong>
+															<div class="countdown d-flex flex-row justify-content-flex" data-date='{{ user.subscription.expiry_date|date:"d-m-Y" }}' data-time='{{ user.subscription.expiry_date|time:"H:i" }}'>
+															<div class="counter d-flex flex-row justify-content-flex mx-1">
+																<div class="day mr-1"><span class="num"></span><span class="word"></span></div>
+																<div class="hour mr-1"><span class="num"></span><span class="word"></span></div>
+																<div class="min mr-1"><span class="num"></span><span class="word"></span></div>
+																<div class="sec hidden"><span class="num"></span><span class="word"></span></div>
+															</div>
+															</div>
+														</div>
+														<a href="{% url 'subscribe' %}" class="text-success">Extend Subscription</a>
+						
+													</li>
+												</ul>				  
 												{%else%}
-													<span class="text-danger">INACTIVE</span>
+													No Plan <br>
+													<a href="{% url 'subscribe' %}" class="text-success">Subscribe</a>
 												{%endif%}
-											</li>
-											<li class="list-group-item">
-				
-												<div class="d-flex justify-content-start align-items-center">
-													<strong>Time Left: </strong>
-													<div class="countdown d-flex flex-row justify-content-flex" data-date='{{ user.subscription.expiry_date|date:"d-m-Y" }}' data-time='{{ user.subscription.expiry_date|time:"H:i" }}'>
-													  <div class="counter d-flex flex-row justify-content-flex mx-1">
-														<div class="day mr-1"><span class="num"></span><span class="word"></span></div>
-														<div class="hour mr-1"><span class="num"></span><span class="word"></span></div>
-														<div class="min mr-1"><span class="num"></span><span class="word"></span></div>
-														<div class="sec hidden"><span class="num"></span><span class="word"></span></div>
-													  </div>
-													</div>
-												  </div>
-												  <a href="{% url 'subscribe' %}" class="text-success">Extend Subscription</a>
-				
-											</li>
-										  </ul>				  
+											
+											{%else%}
+												<h3> Please pay your installation fee before you subscribe to our services</h3>
+												<h3>To make payment online click <a href="">here</a></h3>
+											{%endif%}
+
 										{%else%}
-											No Plan <br>
-											<a href="{% url 'subscribe' %}" class="text-success">Subscribe</a>
+											<h3>Your address will be verifed before you can pay for any subscription. Please hang on as verification is ongoing</h3>
 										{%endif%}
 									</h4>
 								</div>

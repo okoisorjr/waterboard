@@ -14,6 +14,8 @@ class User(AbstractUser):
     state = models.CharField(max_length=35, blank=True, null=True)
     is_organization = models.BooleanField(default=False)
     is_ordinary = models.BooleanField(default=False)
-
+    verified = models.BooleanField(default=False)
+    paid_installment_fee = models.BooleanField(default=False)
+    
     def __str__(self) -> str:
         return f"{self.username}"

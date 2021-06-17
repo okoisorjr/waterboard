@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
         db_alias = schema_editor.connection.alias
 
         Plans.objects.using(db_alias).bulk_create([
-        Plans(name='monthly_org', long_name="Organization Monthly", price=5000.00, duration =30),
+        Plans(name='monthly_org', long_name="Commercial Monthly", price=5000.00, duration =30),
         Plans(name='monthly_ind', long_name="Individual Monthly", price=2000.00, duration =30),
     ])
 

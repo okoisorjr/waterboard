@@ -35,7 +35,7 @@ def subscribe(request):
 	user_type = None
 	if request.user.is_organization:
 		plan = Plans.objects.filter(name__icontains='org').first()
-		user_type = "Organization"
+		user_type = "Commercial"
 	else:
 		plan = Plans.objects.filter(name__icontains='ind').first()
 		user_type = "Residential"

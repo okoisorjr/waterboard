@@ -70,6 +70,11 @@ def subscribe(request):
 
 @login_required
 def pay_installation_fee(request):
+	if not request.user.paid_installment_fee:
+		messages.info(
+			request, "Installation fee already paid!."
+			)
+		return redirect(reverse('dashboard'))
 	amount = None
 	user_type = None
 	if request.user.is_organization:

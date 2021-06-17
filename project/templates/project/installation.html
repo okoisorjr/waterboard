@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="container matp">
+    <div class="clear-top"></div>
+    <div class="col-md-6 order-md-2 mt-5 mb-4 mx-auto">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="">Your cart
+            <span class="float-right text-type">{{user_type}} User</span>
+          </h2>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Installation Fee</h6>
+              <small class="text-checkout">Installation Fee Payment</small>
+            </div>
+            <span class="text-checkout">{{amount}}</span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (NGN)</span>
+            <strong>&#8358;{{amount}}</strong>
+          </li>
+        </ul>
+      </div>
+<!--Home Page -->
+
+<!-- Start price Area -->
+            <div class="row">
+                <div class="col-md-6 mx-auto">    
+                    <div class="title text-center mt-3">
+                        <form method="POST" id="payForm">
+                            {% csrf_token %}
+                            <script
+                                src="https://js.paystack.co/v1/inline.js"
+                                data-key="{{ paystack.public_key }}"
+                                data-email="{{ paystack.email }}"
+                                data-amount="{{ paystack.amount }}"
+                                data-ref="{{ paystack.reference }}"
+                                data-currency="NGN"
+                            >
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+<!-- End price Area -->
+</div>
+{% endblock %}

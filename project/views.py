@@ -4,7 +4,7 @@ from libs.utils.paystack_api import PaystackAccount
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from project.models import Plans, Subscription
+from project.models import Plans, Subscription, User
 from .forms import UserRegistrationForm
 
 # Create your views here.
@@ -40,7 +40,7 @@ def subscribe(request):
 		plan = Plans.objects.filter(name__icontains='ind').first()
 		user_type = "Residential"
 	paystack = PaystackAccount(
-            email=settings.PAYSTACK_EMAIL,
+            email=request.user.email,
             public_key=settings.PAYSTACK_PUBLIC_KEY,
             amount= plan.price
         )
@@ -60,3 +60,35 @@ def subscribe(request):
 		user_type=user_type
 	)
 	return render(request, 'project/checkout.html', context=context)
+
+
+@login_required
+def pay_installation_fee(request):
+	amount = None
+	user_type = None
+	if request.user.is_organization:
+		amount = 50000.00
+		user_type = "Commercial"
+	else:
+		amount = 10000.00
+		user_type = "Residential"
+	paystack = PaystackAccount(
+            email=request.user.email,
+            public_key=settings.PAYSTACK_PUBLIC_KEY,
+            amount= amount
+        )
+	if request.method == "POST":
+		if paystack.verify_transaction(request.POST['reference']):
+			user = User.objects.get(id=request.user.id)
+			user.installation_fee_paid()
+			messages.success(request, "Payment was successful!.")
+			return redirect(reverse('dashboard'))
+		else:
+			messages.error(request, "Payment Not successful, Please try again")
+			return redirect(reverse('dashboard'))
+	context = dict(
+		paystack=paystack,
+		amount = amount,
+		user_type = user_type
+	)
+	return render(request, 'project/installation.html', context=context)

@@ -16,6 +16,10 @@ class User(AbstractUser):
     is_ordinary = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
     paid_installment_fee = models.BooleanField(default=False)
-    
+
     def __str__(self) -> str:
         return f"{self.username}"
+
+    def installation_fee_paid(self):
+        self.paid_installment_fee = True
+        self.save()

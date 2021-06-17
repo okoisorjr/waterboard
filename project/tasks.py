@@ -4,7 +4,7 @@ from .models import User
 
 
 @app.task
-def installation_fee_paid(user_id):    
+def send_installation_fee_paid_mail(user_id):    
     user = User.objects.get(id=user_id)
     subject = f"PAYMENT FOR INSTALLATION SUCCESSFUL"
     return send_email(

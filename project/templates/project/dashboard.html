@@ -13,6 +13,7 @@
 						<div class="col-md-6 p-4">
 							<p class="bold">customer ID:</p><p> {{ request.user.id }}</p>
 							<p class="bold">username:</p><p>{{request.user.username}}</p>
+							<p class="bold">Name:</p><p>{{request.user.get_full_name }}</p>
 							<p class="bold">Email:</p><p>{{request.user.email}}</p>
 							<p class="bold">Phone Number:</p><p>{{request.user.phone_number}}</p>
 							<p class="bold">Address:</p><p>{{request.user.address}}</p>
@@ -26,7 +27,7 @@
 								</div>
 								<div class="card-body">
 									<h4 class="text-center">
-										{%if request.user.verifed %}
+										{%if request.user.verified %}
 											{%if request.user.paid_installment_fee %}
 												{%if request.user.subscription.active %}
 												<ul class="list-group text-center">

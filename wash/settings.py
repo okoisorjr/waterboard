@@ -159,3 +159,6 @@ TAWK_TO_API = "083e8b02f76111058e41e663a44e3ba7a4d4484f"
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = "test@gmail.com"
 # EMAIL_HOST_PASSWORD = "ajdsfdsflsd"
+
+# when email is set up delete this and uncomment setting above
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

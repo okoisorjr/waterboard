@@ -73,7 +73,8 @@ def subscribe(request):
 
 @login_required
 def pay_installation_fee(request):
-	if not request.user.paid_installment_fee:
+
+	if not request.user.paid_installment_fee is False:
 		messages.info(
 			request, "Installation fee already paid!."
 			)

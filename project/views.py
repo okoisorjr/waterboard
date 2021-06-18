@@ -6,6 +6,9 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from project.models import Plans, Subscription, User
 from .forms import UserRegistrationForm
+from project.tasks import send_installation_fee_paid_mail
+
+
 
 # Create your views here.
 def index(request):
@@ -70,7 +73,8 @@ def subscribe(request):
 
 @login_required
 def pay_installation_fee(request):
-	if not request.user.paid_installment_fee:
+
+	if not request.user.paid_installment_fee is False:
 		messages.info(
 			request, "Installation fee already paid!."
 			)
@@ -91,7 +95,7 @@ def pay_installation_fee(request):
 	if request.method == "POST":
 		if paystack.verify_transaction(request.POST['reference']):
 			user = User.objects.get(id=request.user.id)
-			user.installation_fee_paid()
+			send_installation_fee_paid_mail.delay(user.id)
 			messages.success(request, "Payment was successful!.")
 			return redirect(reverse('dashboard'))
 		else:

@@ -63,3 +63,10 @@ Run migrations before starting the django-server
 .. code-block:: sh
 
     python manage.py migrate
+
+Starting Celery server
+
+.. code-block:: sh
+
+    celery -A wash worker -B -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+

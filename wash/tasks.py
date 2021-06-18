@@ -67,7 +67,8 @@ def alert_soon_expired():
         send_email.delay(
             'Account Subscription Expiration',
             'expire_soon.html',
-            username=user.username
+            username=user.username,
+            to_email = [user.email,]
         )
 
     # Accounts with 3 days to expiration
@@ -78,5 +79,6 @@ def alert_soon_expired():
         send_email.delay(
             'Account Subscription Expiration',
             'expire_soon_3.html',
-            username=user.username
+            username=user.username,
+            to_email = [user.email,]
         )

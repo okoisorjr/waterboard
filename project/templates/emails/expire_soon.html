@@ -1,0 +1,14 @@
+{% extends 'email_template.html' %}
+{% autoescape off %}
+{% block subject %}Subscription Expiry {% endblock %}
+
+{% block content %}
+<br>
+<b style="font-size: 18px">Hello {{ user.first_name }}</b>
+<br><br><br>
+Your {{ subscription.get_plan_subscribed_display }} Plan Subscription on Dhistance will expire in 7 days.
+Kindly resubscribe or upgrade.
+{% endblock%}
+
+
+{% endautoescape %}

@@ -65,7 +65,7 @@ def alert_soon_expired():
                 .filter(subscription__expiry_date__day=(timezone.now().day + 7)).all()
     for user in users:
         send_email.delay(
-            'DHIS2 Account Subscription Expiration',
+            'Account Subscription Expiration',
             'expire_soon.html',
             username=user.username
         )
@@ -76,7 +76,7 @@ def alert_soon_expired():
                 .filter(subscription__expiry_date__day=(timezone.now().day + 3)).all()
     for user in users:
         send_email.delay(
-            'DHIS2 Account Subscription Expiration',
+            'Account Subscription Expiration',
             'expire_soon_3.html',
             username=user.username
         )

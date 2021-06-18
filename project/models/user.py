@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser
-from project.tasks import send_installation_fee_paid_mail
+
 # Create your models here.
 
 
@@ -24,5 +24,4 @@ class User(AbstractUser):
     def installation_fee_paid(self):
         self.paid_installment_fee = True
         self.save()
-        send_installation_fee_paid_mail.delay(self.id)
         return True

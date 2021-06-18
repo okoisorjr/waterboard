@@ -1,24 +1,15 @@
-"""
-    Celery messaging Tasks
-
-    .. warning::
-        Read comments in :py:mod:`dhis2.apps.main.tasks` before implementing or changing this code
-"""
-
 from __future__ import absolute_import, unicode_literals
-
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils import timezone
-
 from wash.celery import app
+from project.models import User
 
 @app.task(bind=True)
 def send_email(self,  # pylint: disable=too-many-arguments
                subject,
                email_template,
-               instance_id=None,
                to_email=None,
                from_email=settings.DEFAULT_FROM_EMAIL,
                context=None,
@@ -42,7 +33,7 @@ def send_email(self,  # pylint: disable=too-many-arguments
                     template
     :type context: dict
     """
-    from project.models import User
+
     if not context:
         if username:
             context = {'user': User.objects.get(username=username)}
@@ -61,3 +52,31 @@ def send_error_mail(self, subject, template, **kwargs):  # pylint: disable=unuse
     """ Sends Error message to sysadmin """
 
     send_email.delay(subject, template, to_email=[settings.SYSTEM_ADMIN_EMAIL, ], **kwargs)
+
+
+@app.task
+def alert_soon_expired():
+    """ Alerts users whose subscriptions will soon expire 7 days and 3 days
+     before expiration"""
+
+    # Accounts with 7 days to expiration
+    users = User.objects.filter(subscription__expiry_date__year=(timezone.now().year))\
+            .filter(subscription__activated=True)\
+                .filter(subscription__expiry_date__day=(timezone.now().day + 7)).all()
+    for user in users:
+        send_email.delay(
+            'DHIS2 Account Subscription Expiration',
+            'expire_soon.html',
+            username=user.username
+        )
+
+    # Accounts with 3 days to expiration
+    users = User.objects.filter(subscription__expiry_date__year=(timezone.now().year))\
+            .filter(subscription__activated=True)\
+                .filter(subscription__expiry_date__day=(timezone.now().day + 3)).all()
+    for user in users:
+        send_email.delay(
+            'DHIS2 Account Subscription Expiration',
+            'expire_soon_3.html',
+            username=user.username
+        )

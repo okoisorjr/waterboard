@@ -33,7 +33,7 @@ def register(request):
 			user = form.save(commit=True)
 			# prepare email confirmation message
 			current_site = get_current_site(request)
-			subject = 'Activate Your Travulas Account'
+			subject = 'Activate Your WaterServer Account'
 			message = render_to_string('emails/account_activation_email.html', {
 				'user': user,
 				'domain': current_site.domain,
@@ -134,6 +134,6 @@ def activate_account_view(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return redirect('accounts:user-profile')
+        return redirect('dashboard')
     else:
         return HttpResponse('Activation link is invalid')

@@ -1,0 +1,6 @@
+{% autoescape off %}
+Hi {{ user.email }},
+You are getting this email because you signed up on our site.<br>
+Please click on the link below to confirm your registration:
+http://{{ domain }}{% url 'account-activate' uidb64=uid token=token %}
+{% endautoescape %}

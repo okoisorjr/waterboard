@@ -33,6 +33,7 @@ class UserRegistrationForm(UserCreationForm):
     def save(self, commit: bool):
         if commit:
             user = super().save(commit=commit)
+            user.is_active=False
             if self.cleaned_data.get('user_type') == "org":
                 user.is_organization = True
                 user.save()

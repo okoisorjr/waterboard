@@ -41,7 +41,7 @@ def register(request):
 				'token': account_activation_token.make_token(user),
 			})
 			user.email_user(subject, message)
-			messages.success(request, "Account created successfully, Please Login!.")
+			messages.success(request, "Account created successfully, Kindly verify your email address before you can login!.")
 			return redirect(reverse('login'))
 	context = dict(form=form)
 	return render(request, 'registration/register.html', context=context)
